@@ -105,7 +105,7 @@ public class Day2 {
 
     public static void main(String[] args){
         List<String> input = new ArrayList<>();
-        //part1(input);
+        part1(input);
         part2(input);
     }
 }
