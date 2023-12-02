@@ -34,20 +34,19 @@ public class Day2 {
                 String[] cubes = test.split(", ");
                 for(int k = 0; k < cubes.length; k++){
                     String entries = cubes[k];
-                    String[] testa = entries.split(" ");
-                    System.out.println(Arrays.toString(testa));
-                    if(testa[1].equals("blue")){
-                        if(Integer.parseInt(testa[0]) > blueCubeLimit){
+                    String[] numbersAndColors = entries.split(" ");
+                    if(numbersAndColors[1].equals("blue")){
+                        if(Integer.parseInt(numbersAndColors[0]) > blueCubeLimit){
                             isPossible = false;
                             break;
                         }
-                    } else if(testa[1].equals("red")){
-                        if(Integer.parseInt(testa[0]) > redCubeLimit){
+                    } else if(numbersAndColors[1].equals("red")){
+                        if(Integer.parseInt(numbersAndColors[0]) > redCubeLimit){
                             isPossible = false;
                             break;
                         }
-                    } else if(testa[1].equals("green")){
-                        if(Integer.parseInt(testa[0]) > greenCubeLimit){
+                    } else if(numbersAndColors[1].equals("green")){
+                        if(Integer.parseInt(numbersAndColors[0]) > greenCubeLimit){
                             isPossible = false;
                             break;
                         }
@@ -61,8 +60,52 @@ public class Day2 {
         System.out.println(res);
     }
 
+    private static void part2(List<String> input){
+        int res = 0;
+        int power = 0;
+        input = Collections.emptyList();
+        try {
+            input = Files.readAllLines(Paths.get("src/main/resources/input2.txt"), StandardCharsets.UTF_8);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        for(int i = 0; i < input.size(); i++){
+            int currentBlue = 0;
+            int currentRed = 0;
+            int currentGreen = 0;
+            String list = input.get(i);
+            String[] split = list.split(":");
+            String[] game = split[1].trim().split(";");
+            for(int j = 0; j < game.length; j++){
+                String test = game[j].trim();
+                String[] cubes = test.split(", ");
+                for(int k = 0; k < cubes.length; k++){
+                    String entries = cubes[k];
+                    String[] numbersAndColors = entries.split(" ");
+                    if(numbersAndColors[1].equals("blue")){
+                        if(Integer.parseInt(numbersAndColors[0]) >= currentBlue){
+                            currentBlue = Integer.parseInt(numbersAndColors[0]);
+                        }
+                    } else if(numbersAndColors[1].equals("green")){
+                        if(Integer.parseInt(numbersAndColors[0]) >= currentGreen){
+                            currentGreen = Integer.parseInt(numbersAndColors[0]);
+                        }
+                    } else if(numbersAndColors[1].equals("red")){
+                        if(Integer.parseInt(numbersAndColors[0]) >= currentRed){
+                            currentRed = Integer.parseInt(numbersAndColors[0]);
+                        }
+                    }
+                }
+            }
+            power = currentRed * currentGreen * currentBlue;
+            res += power;
+        }
+        System.out.println(res);
+    }
+
     public static void main(String[] args){
         List<String> input = new ArrayList<>();
-        part1(input);
+        //part1(input);
+        part2(input);
     }
 }

@@ -61,7 +61,6 @@ public class Day1 {
             for(String number: map.keySet()){
                 int first = s.indexOf(number);
                 int last = s.lastIndexOf(number);
-                //int last = s.lastIndexOf(number, first)
                 if(first != -1){
                     numbersFound.put(first, map.get(number));
                 }
@@ -84,8 +83,7 @@ public class Day1 {
 
     public static void main(String[] args){
         List<String> input = new ArrayList<>();
-        //part1(input);
-        // Answer is too high (54608)
+        part1(input);
         part2(input);
     }
 }
